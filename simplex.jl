@@ -13,8 +13,7 @@ function simplex(c, A, b)
 end
 
 function initialTableau(c, A, b)
-    X = [-c; A]
-    X = [X b']
+    X = [ [-c; A] b']
 end
 
 function canImprove(firstRow)
@@ -28,18 +27,16 @@ function setPivotIndex(tableau)
     quocients = tableau[2:end,end] ./ tableau[2:end, pivotCol]
 
     # Pick the positive pivot that will give the minimum quocient
-    minInd = 1
-    minPiv = Inf
+    minInd, minPiv = 1, Inf
     for (i, item) in enumerate(quocients)
         if item < minPiv && tableau[i+1, pivotCol] > 0
-            minInd = i
-            minPiv = item
+            minInd, minPiv = i, item
         end
     end
     
     # Have to account for first line
-    pivotLine = minInd + 1
-    (pivotLine, pivotCol)
+    # (pivotLine, pivotCol) 
+    (minInd + 1, pivotCol)
 end
 
 function pivotAround(tableau, pivotIndex)
