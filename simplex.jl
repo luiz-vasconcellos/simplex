@@ -1,5 +1,5 @@
-# TODO: search the minimum positive pivot on setPivotIndex
 # TODO: transpose the tableau and work with columns
+# TODO: treat cases without first basic solution
 
 function simplex(c, A, b)
     tableau = convert(Array{Float64}, initialTableau(c, A, b))
@@ -26,9 +26,19 @@ function setPivotIndex(tableau)
     # Pick first negative element and pick the least coeficient
     pivotCol = findfirst(x -> x < 0, tableau[1,:])
     quocients = tableau[2:end,end] ./ tableau[2:end, pivotCol]
+
+    # Pick the positive pivot that will give the minimum quocient
+    minInd = 1
+    minPiv = Inf
+    for (i, item) in enumerate(quocients)
+        if item < minPiv && tableau[i+1, pivotCol] > 0
+            minInd = i
+            minPiv = item
+        end
+    end
     
     # Have to account for first line
-    pivotLine = indmin(quocients) + 1
+    pivotLine = minInd + 1
     (pivotLine, pivotCol)
 end
 
@@ -52,4 +62,4 @@ b = [0 4 1]
 # A = [2 1 1 0; 1 2 0 1]
 # b = [0 4 3]
 
-simplex(c, A, b)
+println(simplex(c, A, b))
