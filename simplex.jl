@@ -51,12 +51,12 @@ function pivotAround(tableau, pivotIndex)
     end
 end
 
-c = [3 2 0 0]
-A = [1 2 1 0; 1 -1 0 1]
-b = [0 4 1]
+# c = [3 2 0 0]
+# A = [1 2 1 0; 1 -1 0 1]
+# b = [0 4 1]
 
-# c = [1 1 0 0]
-# A = [2 1 1 0; 1 2 0 1]
-# b = [0 4 3]
+c = [1 1 0 0]
+A = [2 1 1 0; 1 2 0 1]
+b = [0 4 3]
 
 println(simplex(c, A, b))
